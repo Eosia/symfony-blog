@@ -17,6 +17,7 @@ class AppFixtures extends Fixture
         // $manager->persist($product);
 
         $faker = Faker\Factory::create();
+
         $user = [];
 
         for ($i=0 ; $i < 50; $i++) {
@@ -41,6 +42,8 @@ class AppFixtures extends Fixture
             $manager->persist($category);
             $categories[] = $category;
         }
+
+        $articles = [];
 
         for ($i=0 ; $i < 100; $i++) {
             $article = new Article();
