@@ -7,21 +7,38 @@
     <h1 class="my-5">Bienvenue sur la page d'accueil</h1>
 
     <div class="row">
-
-        {% for article in articles %}
-
-            <div class="card col-md-4 p-y-3" style="width: 18rem;">
-                <p class="date">Ecrit le : {{ article.createdAt | date("d/m/y") }} à {{ article.createdAt | date("h:i") }}
-                    Par <span class="author">{{ article.author }}</span>
-                </p>
-                <img src="/assets/blog/images/{{ article.image }}" class="card-img-top" alt="{{ article.title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ article.title }}</h5>
-                    <a href="{{ path('show', {'id': article.id}) }}" class="btn btn-primary">En savoir plus</a>
-                </div>
+        {# affichage des articles #}
+        <div class="col-md-8">
+            <div class="row">
+                {% for article in articles %}
+                    <div class="card col-md-4 p-y-3" style="width: 18rem;">
+                        <p class="date">Ecrit le : {{ article.createdAt | date("d/m/y") }} à {{ article.createdAt | date("h:i") }}
+                            Par <span class="author">{{ article.author }}</span>
+                        </p>
+                        <img src="/assets/blog/images/{{ article.image }}" class="card-img-top" alt="{{ article.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <a href="{{ path('show', {'id': article.id}) }}" class="btn btn-primary">En savoir plus</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
+        </div>
 
-        {% endfor %}
+        {# affichage des catégories #}
+        <div class="col-md-4">
+            <h2>Catégories</h2>
+            <ul class="list-group">
+                {% for category in categories %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="#">{{ category.title }}
+                        <span class="badge badge-primary badge-pill">{{ category.articles | length }} Article(s)</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
 
     </div>
 
