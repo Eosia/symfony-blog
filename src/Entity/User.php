@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -25,21 +26,25 @@ class User
     private $username;
 
     /**
+     * @Assert\Length(min = 3, max=50)
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 3, max=50)
+     * @ORM\Column(type="string", length=255)]
      */
     private $lastname;
 
     /**
+     * @Assert\Email(message="Email incorrect")
      * @ORM\Column(type="string", length=255)
      */
     private $email;
 
     /**
+     * @Assert\Length(min = 4, max=50)
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -54,6 +59,9 @@ class User
      */
     private $articles;
 
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe saisit ne sont pas identique")
+     */
     private $passwordConfirm;
 
     public function __construct()
