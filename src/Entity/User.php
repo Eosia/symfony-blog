@@ -7,11 +7,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
+ * @UniqueEntity(
+ * fields = {"email"},
+ * message= "Un compte existe déjà avec cette adresse email !"
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -194,4 +201,24 @@ class User
 
         return $this;
     }
+
+
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+
 }
